@@ -1,0 +1,54 @@
+{% extends "admin/admin_base.html" %} {% block content %}
+
+<div class="container">
+  <ul class="pagination pagination justify-content-center mt-3 mb-4">
+    <li class="page-item">
+      <a class="page-link" href="{{ url_for('admin_faculty_view') }}">
+        Table
+      </a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="{{ url_for('admin_faculty_details') }}">
+        Details
+      </a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="{{ url_for('admin_faculty_add') }}">Add</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link active" href="{{ url_for('admin_faculty_remove') }}"
+        >Remove</a
+      >
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="{{ url_for('admin_faculty_update') }}"
+        >Update</a
+      >
+    </li>
+  </ul>
+
+    <form method="POST" action="{{ url_for('admin_faculty_remove') }}">
+        <div class="mb-3">
+          <label class="form-label">Faculty ID:</label>
+          <input type="text" class="form-control" name="faculty_id" required />
+        </div>
+        <div class="mb-3">
+          <button type="submit" class="btn btn-primary">Remove</button>
+        </div>
+      </form>
+
+  </div>
+  
+  <script>
+    const sidebarItems = document.querySelectorAll(".nav-link[data-menu]");
+    sidebarItems.forEach((sidebarItem) => {
+      sidebarItem.classList.remove("active");
+    });
+  
+    var facultyLink = document.querySelector('[data-menu="faculty"]');
+    if (facultyLink) {
+      facultyLink.classList.add("active");
+    }
+  </script>
+
+{% endblock %}

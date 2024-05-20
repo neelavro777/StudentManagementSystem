@@ -1,0 +1,57 @@
+{% extends "admin/admin_base.html" %} {% block content %}
+
+<div class="container">
+  <ul class="pagination pagination justify-content-center mt-3 mb-4">
+    <li class="page-item">
+      <a class="page-link" href="{{ url_for('admin_course_view') }}">
+        Table
+      </a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="{{ url_for('admin_course_add') }}">Add</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link active" href="{{ url_for('admin_course_remove') }}"
+        >Remove</a
+      >
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="{{ url_for('admin_course_update') }}"
+        >Update</a
+      >
+    </li>
+  </ul>
+
+    <form method="POST" action="{{ url_for('admin_course_remove') }}">
+        <div class="mb-3">
+          <label class="form-label">Course Code:</label>
+          <input type="text" class="form-control" name="course_code" required />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Section:</label>
+            <input type="text" class="form-control" name="course_section" required />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Semester:</label>
+            <input type="text" class="form-control" name="semester" required />
+          </div>
+        <div class="mb-3">
+          <button type="submit" class="btn btn-primary">Remove</button>
+        </div>
+      </form>
+
+  </div>
+  
+  <script>
+    const sidebarItems = document.querySelectorAll(".nav-link[data-menu]");
+    sidebarItems.forEach((sidebarItem) => {
+      sidebarItem.classList.remove("active");
+    });
+  
+    var courseLink = document.querySelector('[data-menu="course"]');
+    if (courseLink) {
+      courseLink.classList.add("active");
+    }
+  </script>
+
+{% endblock %}

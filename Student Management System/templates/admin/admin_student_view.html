@@ -1,0 +1,97 @@
+{% extends "admin/admin_base.html" %} {% block content %}
+
+<div class="container">
+  <ul class="pagination pagination justify-content-center mt-3 mb-4">
+    <li class="page-item">
+      <a class="page-link active" href="{{ url_for('admin_student_view') }}">
+        Table
+      </a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="{{ url_for('admin_student_details') }}">
+        Details
+      </a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="{{ url_for('admin_student_add') }}">Add</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="{{ url_for('admin_student_remove') }}"
+        >Remove</a
+      >
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="{{ url_for('admin_student_update') }}"
+        >Update</a
+      >
+    </li>
+  </ul>
+
+    <div class="row overflow-auto" style="height: fit-content; max-height: 70vh">
+      <table class="table table-hover table-striped">
+        <thead>
+          <tr>
+            <th>Student ID</th>
+            <th>Name</th>
+            <th>University Email</th>
+            <th>Phone Number</th>
+            <th>Department</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in student %}
+          <tr class="item">
+            <td>{{ i["id"] }}</td>
+            <td>{{ i["name"] }}</td>
+            <td>{{ i["university_email"] }}</td>
+            <td>{{ i["phone_number"] }}</td>
+            <td>{{ i["department"] }}</td>
+            
+            <td class="options p-1 fs-6 bg-white d-flex">
+
+              <form action="{{url_for('admin_student_details')}}" method="POST" class="me-1">
+                <input type="text" name="student_id" value="{{ i['id'] }}" hidden>
+                <button type="submit" class="btn btn-sm btn-success">
+                  <i class="bi bi-eye"></i>
+                  Details
+                </button>
+              </form>
+
+              <form action="{{url_for('admin_student_remove')}}" method="POST" class="me-1">
+                <input type="text" name="student_id" value="{{ i['id'] }}" hidden>
+                <button class="btn btn-sm btn-danger">
+                  <i class="bi bi-trash"></i>
+                  Delete
+                </button>
+              </form>
+
+              <form action="{{ url_for('admin_student_update') }}" method="POST" class="me-1">
+                <input type="text" name="action" value="details" hidden>
+                <input type="text" name="student_id" value="{{ i['id'] }}" hidden>
+                <button class="btn btn-sm btn-primary">
+                  <i class="bi bi-pencil-square"></i>
+                  Update
+                </button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  <script>
+    const sidebarItems = document.querySelectorAll(".nav-link[data-menu]");
+    sidebarItems.forEach((sidebarItem) => {
+      sidebarItem.classList.remove("active");
+    });
+  
+    var studentLink = document.querySelector('[data-menu="student"]');
+    if (studentLink) {
+      studentLink.classList.add("active");
+    }
+  </script>
+
+{% endblock %}

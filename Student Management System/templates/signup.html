@@ -1,0 +1,41 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="container-fluid text-white vh-100 d-flex align-items-center justify-content-center" style="background-color:#2b3035;">
+
+  <div class="mb-5 w-100 text-center" style="max-width: 300px;">
+    <form method="POST">
+      <img class="mb-2" src="{{url_for('static', filename='logo.svg')}}" alt="logo" width="60" height="60">
+      <h1 class="h3 mb-4 fw-normal">Student Sign Up</h1>
+
+      <div class="form-floating">
+        <input type="text" name="student_id" class="form-control bg-dark text-white" id="student_id" placeholder="name@example.com" style="border: 1px solid grey;">
+        <label for="student_id" style="color:lightgrey;">Student ID</label>
+    </div>
+
+      <div class="form-floating">
+          <input type="email" name="email" class="form-control bg-dark text-white" id="user_email" placeholder="name@example.com" style="border: 1px solid grey;">
+          <label for="user_email" style="color:lightgrey;">Email address</label>
+      </div>
+
+      <div class="form-floating">
+          <input type="password" name="password" class="form-control border border-secondary bg-dark text-white" id="user_password" placeholder="Password">
+          <label for="user_password" style="color:lightgrey;">Password</label>
+      </div>
+
+      <div class="form-floating">
+        <input type="password" name="confirm_password" class="form-control border border-secondary bg-dark text-white" id="confirm_password" placeholder="Password">
+        <label for="confirm_password" style="color:lightgrey;">Confirm Password</label>
+    </div>
+    
+      <button class="btn btn-primary w-100 py-2 mt-3" type="submit">Create Account</button>
+      <p class="my-3 text-light" style="font-size: smaller;">
+        Already have an account?
+        <a class="text-decoration-none" href="{{ url_for('login') }}">Sign In</a>
+      </p>
+    </form>
+  </div>
+
+</div>
+
+{% endblock %}
+

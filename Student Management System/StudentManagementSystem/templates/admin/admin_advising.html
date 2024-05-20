@@ -1,0 +1,36 @@
+{% extends "admin/admin_base.html" %} {% block content %}
+<body>
+    <div class="container">
+        <table class="table table-dark mt-3">
+            <tr>
+                <th>Student ID</th>
+                <th>Course Code</th>
+                <th>Course Section</th>
+                <th>Semester</th>
+                <th>CGPA</th>
+                <th>Action</th>
+            </tr>
+            {% for i in student_takedata %}
+            <tr>
+                <td>{{ i['Student_id'] }}</td>
+                <td>{{ i['course_code'] }}</td>
+                <td>{{ i['course_section'] }}</td>
+                <td>{{ i['semester'] }}</td>
+                <td>{{ i['Cgpa'] }}</td>
+                <td>
+                    <form action="{{url_for('admin_advising_remove')}}" method="POST" class="me-1">
+                        <input type="text" name="student_id" value="{{ i['Student_id'] }}" hidden>
+                        <input type="text" name="course_code" value="{{ i['course_code'] }}" hidden>
+                        <input type="text" name="course_section" value="{{ i['course_section'] }}" hidden>
+                        <input type="text" name="semester" value="{{ i['semester'] }}" hidden>
+                        <button class="btn btn-sm btn-danger">
+                          <i class="bi bi-trash"></i>
+                          Delete
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+</body>        
+{% endblock %}

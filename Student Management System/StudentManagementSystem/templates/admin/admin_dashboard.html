@@ -1,0 +1,36 @@
+{% extends "admin/admin_base.html" %} {% block content %} 
+Admin Dashboard 
+
+
+<body>  
+    <!-- As a heading -->
+    <nav class="navbar bg-body-tertiary">
+      <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1"></span>
+      </div>
+    </nav>
+    <div class="card" style="width: 18rem;">
+      <div class="card-header">
+        Number of Students
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">{{ data1['a']}}</li>
+  
+      </ul>
+    </div>
+    
+    <div class="card" style="width: 18rem;">
+      <div class="card-header">
+        Number of Faculties
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">{{data2['b']}}</li>
+  
+      </ul>
+    </div>
+  
+      </ul>
+    </div>
+</body>
+
+{% endblock %}

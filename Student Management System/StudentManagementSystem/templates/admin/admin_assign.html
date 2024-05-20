@@ -1,0 +1,64 @@
+{% extends "admin/admin_base.html" %} {% block content %}
+
+<div class="container mt-2">
+    <div class="my-4">
+        <h3>Assign Faculty to Course</h3>
+        <hr>
+    </div>
+
+    <form action="{{url_for('admin_assign')}}" method="POST">
+
+    <div class="row">
+      <div class="col-md-3">
+        <div class="mb-3">
+          <label class="form-label">Faculty:</label>
+          <input type="text" class="form-control" name="faculty_id" required />
+        </div>
+    </div>
+
+
+      <div class="col-md-3">
+          <div class="mb-3">
+              <label class="form-label">Course Code:</label>
+              <input type="text" class="form-control" name="course_code" required maxlength="6"/>
+            </div>      
+      </div>
+  
+
+      <div class="col-md-3">
+        <div class="mb-3">
+            <label class="form-label">Section:</label>
+            <input type="text" class="form-control" name="course_section" required maxlength="02"/>
+          </div>      
+    </div>
+
+    <div class="col-md-3">
+        <div class="mb-3">
+            <label class="form-label">Semester:</label>
+            <input type="text" class="form-control" name="semester" required/>
+          </div>      
+    </div>
+    <div class="mt-3">
+        <button type="submit" class="btn btn-primary">Assign Faculty</button>
+      </div>
+
+</div>
+</form>
+
+
+
+
+
+  <script>
+    const sidebarItems = document.querySelectorAll(".nav-link[data-menu]");
+    sidebarItems.forEach((sidebarItem) => {
+      sidebarItem.classList.remove("active");
+    });
+  
+    var assignLink = document.querySelector('[data-menu="assign"]');
+    if (assignLink) {
+      assignLink.classList.add("active");
+    }
+  </script>
+
+{% endblock %}

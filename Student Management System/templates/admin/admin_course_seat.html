@@ -1,0 +1,40 @@
+{% extends "admin/admin_base.html" %} {% block content %}
+
+<body>
+  <div id="barchart_material" style="width: 900px; height: 500px;"></div>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+  </script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Course Code');
+        data.addColumn('number', 'Total Students');
+
+        {% for i in course_data3 %}
+        data.addRow(['{{ i['course_code']}}', {{i['total_students']}}]);
+        {% endfor %}
+
+        var options = {
+          chart: {
+            title: 'Total Students per Course',
+          },
+          bars: 'vertical', // Required for Material Bar Charts.
+          width: 500,
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('barchart_material'));
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+    </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+    integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+  </script>
+
+</body>
+
+{% endblock %}

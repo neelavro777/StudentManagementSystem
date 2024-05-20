@@ -1,0 +1,54 @@
+{% extends "student/student_base.html" %} {% block content %} 
+Student Dashboard 
+
+  <body>
+    <nav class="navbar bg-body-tertiary">
+      </nav>
+      
+      <!-- As a heading -->
+      <nav class="navbar bg-body-tertiary">
+        <div class="container-fluid">
+          <span class="navbar-brand mb-0 h1"></span>
+        </div>
+      </nav>
+      <div class="card" style="width: 18rem;">
+        <div class="card-header">
+           Student Information
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Name: {{user_data['name']}}</li>
+          <li class="list-group-item">ID: {{user_data['id']}}</li>
+          <li class="list-group-item">email: {{user_data['university_email']}}</li>
+          <li class="list-group-item">Major: {{user_data['department']}}</li>
+          <li class="list-group-item">phone_no: {{user_data['phone_number']}}</li>
+        </ul>
+      </div>
+      <div> 
+        l
+      </div>
+        <table class="table table-dark mt-3">
+          <tr>
+              <th>Student ID</th>
+              <th>Course Code</th>
+              <th>Course Section</th>
+              <th>Semester</th>
+              <th>Day</th>
+              <th>Start_time</th>
+              <th>end_time</th>
+              <th>type</th>
+          </tr>
+          {% for i in user_data1 %}
+          <tr>
+              <td>{{ i['Student_id'] }}</td>
+              <td>{{ i['course_code'] }}</td>
+              <td>{{ i['course_section'] }}</td>
+              <td>{{ i['semester'] }}</td>
+              <td>{{ i['day'] }}</td>
+              <td>{{ i['start_time'] }}</td>
+              <td>{{ i['end_time'] }}</td>
+              <td>{{ i['type'] }}</td>
+          </tr>  
+          {% endfor %}   
+</body>
+
+{% endblock %}

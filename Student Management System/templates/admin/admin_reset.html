@@ -1,0 +1,52 @@
+{% extends "admin/admin_base.html" %} {% block content %}
+
+<body>
+    <div class="container my-5">
+      <div class="position-relative  p-5 text-center text-muted bg-light border border-dashed rounded-5">
+        <svg class="bi mt-5 mb-3 " width="48" height="48"><use xlink:href="#check2-circle"></use></svg>
+        <h1 class="text-body-emphasis"  style="color:black">Start A New Semester</h1>
+        <form action="{{ url_for('admin_reset') }}" method="post">
+          <span class="bg-dark text-center text-white rounded-1 px-5 py-1">{{current_sem}}</span>
+          <input type="text" name="new_sem" placeholder="New Semester">
+          <label for="year">Select a Year:</label>
+          <select id="year" name="year">
+            <option value="2024">2024</option>
+            <option value="2025">2025</option>
+            <option value="2026">2026</option>
+          </select>
+          <input type="submit" value="Submit">
+        </form>
+      </div>
+      <table class="table table-success table-striped">
+          <tr>
+              <th>Course Code</th>
+              <th>Course Section</th>
+              <th>Semester</th>
+              <th>Course Name</th>
+              <th>Vacant Seats</th>
+              <th>Occupied Seats</th>
+              <th>Assigned Faculty</th>
+          </tr>
+          {% for i in data %}
+          <tr>
+          <td>{{ i['course_code'] }}</td>
+          <td>{{ i['course_section'] }}</td>
+          <td>{{ i['semester'] }}</td>
+          <td>{{ i['course_name'] }}</td>
+          <td>{{ i['seats_vacant'] }}</td>
+          <td>{{ i['seats_occupied'] }}</td>
+          <td>{{ i['assigned_faculty'] }}</td>
+          </tr>
+          {% endfor %}
+      </table>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+      integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+    </script>
+  
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+      integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+    </script>
+  </body>
+
+{% endblock %}

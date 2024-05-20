@@ -1,0 +1,56 @@
+{% extends "admin/admin_base.html" %} {% block content %}
+
+<div class="container">
+    <div class="row overflow-auto" style="height: fit-content; max-height: 70vh">
+      <table class="table table-hover table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Overall CGPA</th>
+            <th>Dues</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in student %}
+          <tr class="item">
+            <td>{{ i["id"] }}</td>
+            <td>{{ i["name"] }}</td>
+            <td>{{ i["user_email"] }}</td>
+            <td>{{ i["overall_cgpa"] }}</td>
+            <td>{{ i["dues"] }}</td>
+            
+            <td class="options p-1 fs-6 bg-white">
+              <button class="btn btn-sm btn-success rounded-5">
+                <!-- <i class="bi bi-check-circle-fill"></i> -->
+                <i class="bi bi-check-lg"></i>
+                <!-- Accept -->
+              </button>
+              <button class="btn btn-sm btn-danger rounded-5">
+                <!-- <i class="bi bi-x-circle-fill"></i> -->
+                <i class="bi bi-x-lg"></i>
+                <!-- Deny -->
+              </button>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+  
+  <script>
+    const sidebarItems = document.querySelectorAll(".nav-link[data-menu]");
+    sidebarItems.forEach((sidebarItem) => {
+      sidebarItem.classList.remove("active");
+    });
+  
+    var studentLink = document.querySelector('[data-menu="approve"]');
+    if (studentLink) {
+      studentLink.classList.add("active");
+    }
+  </script>
+
+{% endblock %}

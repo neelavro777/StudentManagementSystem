@@ -1,0 +1,253 @@
+{% extends "admin/admin_base.html" %} {% block content %}
+
+<div class="container">
+    <ul class="pagination pagination justify-content-center my-3">
+        <li class="page-item">
+          <a class="page-link" href="{{ url_for('admin_student_view') }}">
+            Table
+          </a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="{{ url_for('admin_student_details') }}">
+            Details
+          </a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="{{ url_for('admin_student_add') }}">
+            Add
+          </a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="{{ url_for('admin_student_remove') }}"
+            >Remove</a
+          >
+        </li>
+        <li class="page-item">
+          <a class="page-link active" href="{{ url_for('admin_student_update') }}"
+            >Update</a
+          >
+        </li>
+      </ul>
+
+
+      {% if student_data==None %}
+      <form method="POST" action="{{ url_for('admin_student_update') }}">
+          <div class="mb-3">
+            <label for="student_id" class="form-label">Student ID:</label>
+            <input type="text" class="form-control" name="student_id" required />
+          </div>
+          <input type="text" name="action" value="details" hidden>
+          <div class="mb-3">
+            <button type="submit" class="btn btn-primary">View Details</button>
+          </div>
+        </form>
+  
+      {% else %}
+  
+<form action="{{url_for('admin_student_update')}}" method="POST" class="mb-5">
+    <input type="text" name="action" value="update" hidden>
+    <input type="text" name="id" value="{{ student_data['id'] }}" hidden/>
+
+    
+    <div class="row">
+        <div class="d-flex justify-content-between flex-wrap flex-lg-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+          <h2>Program Information</h2>
+        </div>
+    
+        <div class="container mt-2">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label class="form-label">Department:</label>
+                <input type="text" class="form-control" name="department" value="{{ student_data['department'] }}" required />
+              </div>
+            </div>
+    
+
+          </div>
+        </div>
+      </div>
+    
+      <div class="row">
+        <div class="d-flex justify-content-between flex-wrap flex-lg-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+          <h2>Student Information</h2>
+        </div>
+
+        <div class="container mt-2">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label class="form-label">Name:</label>
+                <input type="text" class="form-control" name="name" value="{{ student_data['name'] }}" required />
+              </div>
+    
+              <div class="mb-3">
+                <label class="form-label">ID:</label>
+                <input type="text" class="form-control" name="id" value="{{ student_data['id'] }}" disabled />
+              </div>
+    
+              <div class="mb-3">
+                <label class="form-label">Date of Birth:</label>
+                <input type="date" name="date_of_birth" class="form-control" value="{{ student_data['date_of_birth'] }}">
+              </div>
+    
+              <div class="mb-3">
+                <label class="form-label">Nationality:</label>
+                <input type="text" class="form-control" name="nationality" value="{{ student_data['nationality'] }}"/>
+              </div>    
+            </div>
+    
+            <!-- Second Column -->
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label class="form-label">Gender:</label>
+                <select class="form-select" id="gender" name="gender" value="{{ student_data['gender'] }}">
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+              </div>
+    
+              <div class="mb-3">
+                <label class="form-label">Address:</label>
+                <input type="text" class="form-control" name="current_address", value="{{ student_data['current_address'] }}"/>
+              </div>
+    
+              <div class="mb-3">
+                <label class="form-label">Phone Number:</label>
+                <input type="text" class="form-control" name="phone_number" maxlength="15" value="{{ student_data['phone_number'] }}"/>
+              </div>
+    
+              <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="text" class="form-control" name="university_email", value="{{ student_data['university_email'] }}"/>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <div class="row">
+        <div class="d-flex justify-content-between flex-wrap flex-lg-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+          <h2>Educational Information</h2>
+        </div>
+    
+        <div class="container mt-2 mb-5">
+
+    
+          <div class="row">
+            <!-- First Column -->
+            <div class="col-md-2">
+                <label class="form-label">Qualification Type:</label>
+                <select class="form-select" name="qualification_type1" value="{{ qualifications[0]['qualification_type'] }}">
+                    <option value="O' levels">O'levels</option>
+                    <option value="SSC">SSC</option>
+                </select>
+            </div>
+
+            <div class="col-md-4">
+              <div class="mb-3">
+                <label class="form-label">Educational Institute:</label>
+                <input type="text" class="form-control" name="educational_institute1" value="{{ qualifications[0]['educational_institute'] }}"/>
+            </div>
+            </div>
+    
+            <!-- Second Column -->
+            <div class="col-md-2">
+              <div class="mb-3">
+                <label class="form-label">Passing Year:</label>
+                <input type="number" class="form-control" name="passing_year1" min="1900" max="2099" value="{{ qualifications[0]['passing_year'] }}"/>
+            </div>
+            </div>
+    
+            <!-- Third Column -->
+            <div class="col-md-2">
+              <div class="mb-3">
+                <label class="form-label">Cumulative GPA:</label>
+                <input type="text" class="form-control" name="cgpa1" value="{{ qualifications[0]['cgpa'] }}"/>
+              </div>
+            </div>
+    
+            <!-- Fourth Column -->
+            <div class="col-md-2">
+              <div class="mb-3">
+                <label class="form-label">Medium:</label>
+                <select class="form-select" name="medium1" value="{{ qualifications[0]['medium'] }}">
+                    <option value="English">English</option>
+                    <option value="Bangla">Bangla</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <!-- First Column -->
+            <div class="col-md-2">
+                <div class="mb-0">
+                    <label class="form-label">Qualification Type:</label>
+                    <select class="form-select" name="qualification_type2" value="{{ qualifications[1]['qualification_type'] }}">
+                        <option value="A' levels">A' levels</option>
+                        <option value="HSC">HSC</option>
+                    </select>    
+                </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="mb-0">
+                <label class="form-label">Educational Institute:</label>
+                <input type="text" class="form-control" name="educational_institute2" value="{{ qualifications[1]['educational_institute'] }}"/>
+            </div>
+            </div>
+    
+            <!-- Second Column -->
+            <div class="col-md-2">
+              <div class="mb-0">
+                <label class="form-label">Passing Year:</label>
+                <input type="number" class="form-control" name="passing_year2" min="1900" max="2099" value="{{ qualifications[1]['passing_year'] }}"/>
+            </div>
+            </div>
+    
+            <!-- Third Column -->
+            <div class="col-md-2">
+              <div class="mb-0">
+                <label class="form-label">Cumulative GPA:</label>
+                <input type="text" class="form-control" name="cgpa2" value="{{ qualifications[1]['cgpa'] }}"/>
+              </div>
+            </div>
+    
+            <!-- Fourth Column -->
+            <div class="col-md-2">
+              <div class="mb-0">
+                <label class="form-label">Medium:</label>
+                <select class="form-select" name="medium2" value="{{ qualifications[1]['medium'] }}">
+                    <option value="English">English</option>
+                    <option value="Bangla">Bangla</option>
+                </select>
+              </div>
+            </div>
+          </div>
+    
+          
+        </div>
+      </div>
+      <div>
+        <button type="submit" class="btn btn-primary">Update</button>
+      </div>
+</form>
+  </div>
+  
+  <script>
+    const sidebarItems = document.querySelectorAll(".nav-link[data-menu]");
+    sidebarItems.forEach((sidebarItem) => {
+      sidebarItem.classList.remove("active");
+    });
+  
+    var studentLink = document.querySelector('[data-menu="student"]');
+    if (studentLink) {
+      studentLink.classList.add("active");
+    }
+  </script>
+
+    {% endif %}
+
+{% endblock %}

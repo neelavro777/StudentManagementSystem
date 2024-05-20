@@ -1,0 +1,94 @@
+{% extends "admin/admin_base.html" %} {% block content %}
+
+<div class="container">
+  <ul class="pagination pagination justify-content-center mt-3 mb-4">
+    <li class="page-item">
+      <a class="page-link active" href="{{ url_for('admin_course_view') }}">
+        Table
+      </a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="{{ url_for('admin_course_add') }}">Add</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="{{ url_for('admin_course_remove') }}"
+        >Remove</a
+      >
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="{{ url_for('admin_course_update') }}"
+        >Update</a
+      >
+    </li>
+  </ul>
+
+    <div class="row overflow-auto" style="height: fit-content; max-height: 70vh">
+      <table class="table table-hover table-striped">
+        <thead>
+          <tr>
+            <th>Course Code</th>
+            <th>Course Name</th>
+            <th>Section</th>
+            <th>Semester</th>
+            <th>Seats Vacant</th>
+            <th>Seats Occupied</th>
+            <th>Assigned Faculty</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in course %}
+          
+          <tr class="item">
+            <td>{{ i["course_code"] }}</td>
+            <td>{{ i["course_name"] }}</td>
+            <td>{{ i["course_section"] }}</td>
+            <td>{{ i["semester"] }}</td>
+            <td>{{ i["seats_vacant"] }}</td>
+            <td>{{ i["seats_occupied"] }}</td>
+            <td>{{ i["assigned_faculty"] }}</td>
+            
+            <td class="options p-1 fs-6 bg-white d-flex">
+
+              <form action="{{url_for('admin_course_remove')}}" method="POST" class="me-1">
+                <input type="hidden" name="course_code" value="{{ i['course_code'] }}" >
+                <input type="hidden" name="course_name" value="{{ i['course_name'] }}" >
+                <input type="hidden" name="course_section" value="{{ i['course_section'] }}" >
+                <input type="hidden" name="semester" value="{{ i['semester'] }}" >
+                <button class="btn btn-sm btn-danger">
+                  <i class="bi bi-trash"></i>
+                  Delete
+                </button>
+              </form>
+
+              <form action="{{ url_for('admin_course_update') }}" method="POST" class="me-1">
+                <input type="hidden" name="action" value="details" >
+                <input type="hidden" name="course_code" value="{{ i['course_code'] }}" >
+                <input type="hidden" name="course_name" value="{{ i['course_name'] }}" >
+                <input type="hidden" name="course_section" value="{{ i['course_section'] }}" >
+                <input type="hidden" name="semester" value="{{ i['semester'] }}" >
+                <button class="btn btn-sm btn-primary">
+                  <i class="bi bi-pencil-square"></i>
+                  Update
+                </button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  <script>
+    const sidebarItems = document.querySelectorAll(".nav-link[data-menu]");
+    sidebarItems.forEach((sidebarItem) => {
+      sidebarItem.classList.remove("active");
+    });
+  
+    var courseLink = document.querySelector('[data-menu="course"]');
+    if (courseLink) {
+      courseLink.classList.add("active");
+    }
+  </script>
+
+{% endblock %}

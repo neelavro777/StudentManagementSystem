@@ -1,0 +1,123 @@
+{% extends "admin/admin_base.html" %} {% block content %}
+
+<div class="container">
+    <ul class="pagination pagination justify-content-center my-3">
+        <li class="page-item">
+          <a class="page-link" href="{{ url_for('admin_course_view') }}">
+            Table
+          </a>
+        </li>
+
+        <li class="page-item">
+          <a class="page-link" href="{{ url_for('admin_course_add') }}">
+            Add
+          </a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="{{ url_for('admin_course_remove') }}"
+            >Remove</a
+          >
+        </li>
+        <li class="page-item">
+          <a class="page-link active" href="{{ url_for('admin_course_update') }}"
+            >Update</a
+          >
+        </li>
+      </ul>
+
+
+      {% if course_data==None %}
+      <form method="POST" action="{{ url_for('admin_course_update') }}">
+        <div class="mb-3">
+            <label class="form-label">Course Code:</label>
+            <input type="text" class="form-control" name="course_code" required />
+          </div>
+          <div class="mb-3">
+              <label class="form-label">Section:</label>
+              <input type="text" class="form-control" name="course_section" required />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Semester:</label>
+              <input type="text" class="form-control" name="semester" required />
+            </div>
+          <div class="mb-3">
+            <button type="submit" class="btn btn-primary">View Details</button>
+          </div>
+        </form>
+  
+      {% else %}
+  
+<form action="{{url_for('admin_course_update')}}" method="POST" class="mb-5">
+    <input type="text" name="action" value="update" hidden>
+    
+      <div class="row">
+        <div class="d-flex justify-content-between flex-wrap flex-lg-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+          <h2>Course Information</h2>
+        </div>
+
+        <div class="container mt-2">
+          <div class="row">
+            <div class="col-md-6">
+                <div class="mb-3">
+                  <label class="form-label">Course Code:</label>
+                  <input type="text" class="form-control" name="course_code" value="{{ course_data['course_code'] }}" hidden/>
+                  <input type="text" class="form-control" name="course_code" value="{{ course_data['course_code'] }}" disabled/>
+                </div>
+  
+                <div class="mb-3">
+                  <label class="form-label">Course Name:</label>
+                  <input type="text" class="form-control" name="course_name" value="{{ course_data['course_name'] }}" required/>
+                </div>
+      
+                <div class="mb-3">
+                  <label class="form-label">Semester:</label>
+                  <input type="text" class="form-control" name="semester" value="{{ course_data['semester'] }}" hidden/>
+                  <input type="text" class="form-control" name="semester" value="{{ course_data['semester'] }}" disabled/>
+                </div>
+              </div>
+      
+              <!-- Second Column -->
+              <div class="col-md-6">
+                  <div class="mb-3">
+                      <label class="form-label">Section:</label>
+                      <input type="text" class="form-control" name="course_section" value="{{ course_data['course_section'] }}" hidden/>
+                      <input type="text" class="form-control" name="course_section" value="{{ course_data['course_section'] }}" disabled/>
+                    </div>
+      
+                    <div class="mb-3">
+                      <label class="form-label">Seats Occupied:</label>
+                      <input type="text" class="form-control" name="seats_occupied" value="{{ course_data['seats_occupied'] }}" disabled/>
+                    </div>
+          
+                    <div class="mb-3">
+                      <label class="form-label">Seats Vacant:</label>
+                      <input type="text" class="form-control" name="seats_vacant" value="{{ course_data['seats_vacant'] }}" disabled/>
+                  </div>
+                  
+              </div>
+          </div>
+        </div>
+      </div>
+    
+      
+      <div>
+        <button type="submit" class="btn btn-primary">Update</button>
+      </div>
+</form>
+  </div>
+  {% endif %}
+  <script>
+    const sidebarItems = document.querySelectorAll(".nav-link[data-menu]");
+    sidebarItems.forEach((sidebarItem) => {
+      sidebarItem.classList.remove("active");
+    });
+  
+    var courseLink = document.querySelector('[data-menu="course"]');
+    if (courseLink) {
+      courseLink.classList.add("active");
+    }
+  </script>
+
+    
+
+{% endblock %}
